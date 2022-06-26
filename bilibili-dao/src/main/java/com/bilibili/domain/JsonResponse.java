@@ -1,4 +1,4 @@
-package com.bilibili.dao.domain;
+package com.bilibili.domain;
 
 
 public class JsonResponse<T> {
