@@ -73,7 +73,7 @@ CREATE TABLE `t_following_group` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `userId` bigint DEFAULT NULL COMMENT '用户id',
   `name` varchar(50) DEFAULT NULL COMMENT '关注分组名称',
-  `type` varchar(5) DEFAULT NULL COMMENT '关注分组类型：0特别关注  1悄悄关注 2默认分组  3用户自定义分组',
+  `type` varchar(5) DEFAULT NULL COMMENT '关注分组类型：0特别关注  1悄悄关注 2 默认分组  3用户自定义分组',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)

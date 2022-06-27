@@ -1,9 +1,11 @@
 package com.bilibili.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bilibili.dao.UserDao;
+import com.bilibili.domain.PageResult;
 import com.bilibili.domain.User;
 import com.bilibili.domain.UserInfo;
-import com.bilibili.domain.constant.UserConst;
+import com.bilibili.domain.constant.UserConstant;
 import com.bilibili.domain.exception.ConditionException;
 import com.bilibili.service.util.MD5Util;
 import com.bilibili.service.util.RSAUtil;
@@ -13,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -46,9 +51,9 @@ public class UserService {
         userDao.addUser(user);
         UserInfo userInfo = new UserInfo();
         userInfo.setUserId(user.getId());
-        userInfo.setNick(UserConst.DEFAULT_NICK);
-        userInfo.setBirth(UserConst.DEFAULT_BIRTH);
-        userInfo.setGender(UserConst.GENDER_MALE);
+        userInfo.setNick(UserConstant.DEFAULT_NICK);
+        userInfo.setBirth(UserConstant.DEFAULT_BIRTH);
+        userInfo.setGender(UserConstant.GENDER_MALE);
         userInfo.setCreateTime(now);
         userDao.addUserInfo(userInfo);
     }
@@ -88,13 +93,13 @@ public class UserService {
         return user;
     }
 
-    public void updateUsers(User user) throws Exception{
+    public void updateUsers(User user) throws Exception {
         Long id = user.getId();
         User dbUser = userDao.getUserById(id);
-        if(dbUser == null){
+        if (dbUser == null) {
             throw new ConditionException("user not exist !");
         }
-        if(!StringUtils.isNullOrEmpty(user.getPassword())){
+        if (!StringUtils.isNullOrEmpty(user.getPassword())) {
             String rawPassword = RSAUtil.decrypt(user.getPassword());
             String md5Password = MD5Util.sign(rawPassword, dbUser.getSalt(), "UTF-8");
             user.setPassword(md5Password);
@@ -106,5 +111,26 @@ public class UserService {
     public void updateUserInfos(UserInfo userInfo) {
         userInfo.setUpdateTime(new Date());
         userDao.updateUserInfos(userInfo);
+    }
+
+    public User getUserById(Long followingId) {
+        return userDao.getUserById(followingId);
+    }
+
+    public List<UserInfo> getUserInfoByUserIds(Set<Long> userIdList) {
+        return userDao.getUserInfoByUserIds(userIdList);
+    }
+
+    public PageResult<UserInfo> pageListUserInfos(JSONObject params) {
+        Integer no = params.getInteger("no");
+        Integer size = params.getInteger("size");
+        params.put("start", (no - 1) * size);
+        params.put("limit", size);
+        Integer total = userDao.pageCountUserInfos(params);
+        List<UserInfo> list = new ArrayList<>();
+        if (total > 0) {
+            list = userDao.pageListUserInfos(params);
+        }
+        return new PageResult<>(total, list);
     }
 }
