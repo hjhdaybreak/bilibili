@@ -1,0 +1,6 @@
+com\bilibili\dao\UserDao.class
+com\bilibili\domain\User.class
+com\bilibili\domain\exception\ConditionException.class
+com\bilibili\domain\JsonResponse.class
+com\bilibili\domain\constant\UserConst.class
+com\bilibili\domain\UserInfo.class

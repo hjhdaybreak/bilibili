@@ -1,0 +1,3 @@
+com\bilibili\api\UserApi.class
+com\bilibili\api\support\UserSupport.class
+com\bilibili\BilibiliApp.class
