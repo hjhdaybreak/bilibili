@@ -14,12 +14,18 @@ public class FileApi {
     @Autowired
     private FileService fileService;
 
+    @PostMapping("/md5files")
+    public JsonResponse<String> getFileMD5(MultipartFile file) throws Exception {
+        String fileMD5 = fileService.getFileMD5(file);
+        return new JsonResponse<>(fileMD5);
+    }
 
     @PutMapping("/file-slices")
     public JsonResponse<String> uploadFileBySlices(MultipartFile slice,
                                                    String fileMd5,
                                                    Integer sliceNo,
                                                    Integer totalSliceNo) throws Exception {
+
         String filePath = fileService.uploadFileBySlices(slice, fileMd5, sliceNo, totalSliceNo);
         return new JsonResponse<>(filePath);
     }
