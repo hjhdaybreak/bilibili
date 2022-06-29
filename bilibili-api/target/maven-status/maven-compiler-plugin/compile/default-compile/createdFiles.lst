@@ -1,4 +1,8 @@
+com\bilibili\api\UserMomentsApi.class
+com\bilibili\BilibiliApp.class
+com\bilibili\aspect\DataLimitedAspect.class
 com\bilibili\api\UserApi.class
 com\bilibili\api\UserFollowingApi.class
+com\bilibili\aspect\ApiLimitedRoleAspect.class
 com\bilibili\api\support\UserSupport.class
-com\bilibili\BilibiliApp.class
+com\bilibili\api\UserAuthApi.class
