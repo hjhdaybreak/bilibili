@@ -8,7 +8,7 @@ public class PageResult<T> {
 
     private List<T> list;
 
-    public PageResult(Integer total, List<T> list){
+    public PageResult(Integer total, List<T> list) {
         this.total = total;
         this.list = list;
     }

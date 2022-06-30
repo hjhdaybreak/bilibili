@@ -30,8 +30,7 @@ public class RocketMQConfig {
     @Value("${rocketmq.name.server.address}")
     private String nameServerAddr;
 
-
-        @Autowired
+    @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
     @Autowired
