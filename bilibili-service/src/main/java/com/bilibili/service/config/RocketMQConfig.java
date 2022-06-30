@@ -2,7 +2,6 @@ package com.bilibili.service.config;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.bilibili.domain.User;
 import com.bilibili.domain.UserFollowing;
 import com.bilibili.domain.UserMoment;
 import com.bilibili.domain.constant.UserMomentsConstant;

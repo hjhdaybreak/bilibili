@@ -15,8 +15,7 @@ public class RocketMQUtil {
 
 
     public static void syncSendMsg(DefaultMQProducer producer, Message msg) throws MQBrokerException, RemotingException, InterruptedException, MQClientException {
-        SendResult result = producer.send(msg);
-        System.out.println(result);
+        producer.send(msg);
     }
 
     public static void asyncSendMsg(DefaultMQProducer producer, Message msg) throws RemotingException, InterruptedException, MQClientException {
