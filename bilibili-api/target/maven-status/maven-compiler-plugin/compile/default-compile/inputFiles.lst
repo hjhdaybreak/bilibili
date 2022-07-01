@@ -3,6 +3,8 @@ E:\bilibili\bilibili-api\src\main\java\com\bilibili\api\UserFollowingApi.java
 E:\bilibili\bilibili-api\src\main\java\com\bilibili\api\UserApi.java
 E:\bilibili\bilibili-api\src\main\java\com\bilibili\api\UserAuthApi.java
 E:\bilibili\bilibili-api\src\main\java\com\bilibili\api\support\UserSupport.java
+E:\bilibili\bilibili-api\src\main\java\com\bilibili\api\VideoApi.java
 E:\bilibili\bilibili-api\src\main\java\com\bilibili\aspect\ApiLimitedRoleAspect.java
+E:\bilibili\bilibili-api\src\main\java\com\bilibili\api\FileApi.java
 E:\bilibili\bilibili-api\src\main\java\com\bilibili\api\UserMomentsApi.java
 E:\bilibili\bilibili-api\src\main\java\com\bilibili\BilibiliApp.java

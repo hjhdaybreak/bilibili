@@ -1,5 +1,7 @@
+com\bilibili\api\FileApi.class
 com\bilibili\api\UserMomentsApi.class
 com\bilibili\BilibiliApp.class
+com\bilibili\api\VideoApi.class
 com\bilibili\aspect\DataLimitedAspect.class
 com\bilibili\api\UserApi.class
 com\bilibili\api\UserFollowingApi.class

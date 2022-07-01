@@ -7,11 +7,8 @@ import com.bilibili.dao.UserMomentsDao;
 import com.bilibili.domain.UserMoment;
 import com.bilibili.domain.constant.UserMomentsConstant;
 import com.bilibili.service.util.RocketMQUtil;
-import org.apache.rocketmq.client.exception.MQBrokerException;
-import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -33,7 +30,7 @@ public class UserMomentsService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    public void addUserMoments(UserMoment userMoment) throws MQBrokerException, RemotingException, InterruptedException, MQClientException {
+    public void addUserMoments(UserMoment userMoment) throws Exception {
         userMoment.setCreateTime(new Date());
         userMomentsDao.addUserMoments(userMoment);
         DefaultMQProducer producer = (DefaultMQProducer) applicationContext.getBean("momentsProducer");

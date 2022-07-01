@@ -25,7 +25,7 @@ public class UserApi {
     @GetMapping("/users")
     public JsonResponse<User> getUserInfo() {
         Long userId = userSupport.getCurrentUserId();
-        User user = userService.getUserInfo(userId);
+        User user = userService.getUserInfoByUserId(userId);
         return new JsonResponse<>(user);
     }
 

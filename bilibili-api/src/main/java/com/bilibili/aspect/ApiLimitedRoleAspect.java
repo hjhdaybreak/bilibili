@@ -1,7 +1,7 @@
 package com.bilibili.aspect;
 
 import com.bilibili.api.support.UserSupport;
-import com.bilibili.domain.User;
+
 import com.bilibili.domain.annotation.ApiLimitedRole;
 import com.bilibili.domain.auth.UserRole;
 import com.bilibili.domain.exception.ConditionException;

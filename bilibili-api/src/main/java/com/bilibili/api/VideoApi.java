@@ -108,4 +108,59 @@ public class VideoApi {
         return new JsonResponse<>(result);
     }
 
+    /**
+     * 视频投币
+     */
+    @PostMapping("/video-coins")
+    public JsonResponse<String> addVideoCoins(@RequestBody VideoCoin videoCoin) {
+        Long userId = userSupport.getCurrentUserId();
+        videoService.addVideoCoins(videoCoin, userId);
+        return JsonResponse.success();
+    }
+
+    /**
+     * 查询视频投币数量
+     */
+    @GetMapping("/video-coins")
+    public JsonResponse<Map<String, Object>> getVideoCoins(@RequestParam Long videoId) {
+        Long userId = null;
+        try {
+            userId = userSupport.getCurrentUserId();
+        } catch (Exception ignored) {
+        }
+        Map<String, Object> result = videoService.getVideoCoins(videoId, userId);
+        return new JsonResponse<>(result);
+    }
+
+    /**
+     * 添加视频评论
+     */
+    @PostMapping("/video-comments")
+    public JsonResponse<String> addVideoComment(@RequestBody VideoComment videoComment) {
+        Long userId = userSupport.getCurrentUserId();
+        videoService.addVideoComment(videoComment, userId);
+        return JsonResponse.success();
+    }
+
+    /**
+     * 分页查询视频评论
+     */
+    @GetMapping("/video-comments")
+    public JsonResponse<PageResult<VideoComment>> pageListVideoComments(@RequestParam Integer size,
+                                                                        @RequestParam Integer no,
+                                                                        @RequestParam Long videoId) {
+        PageResult<VideoComment> result = videoService.pageListVideoComments(size, no, videoId);
+        return new JsonResponse<>(result);
+    }
+
+    /**
+     * 获取视频详情
+     */
+    @GetMapping("/video-details")
+    public JsonResponse<Map<String, Object>> getVideoDetails(@RequestParam Long videoId) {
+        Map<String, Object> result = videoService.getVideoDetails(videoId);
+        return new JsonResponse<>(result);
+    }
+
+
 }

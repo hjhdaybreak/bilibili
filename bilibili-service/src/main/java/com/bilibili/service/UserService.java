@@ -90,7 +90,7 @@ public class UserService {
         return TokenUtil.generateToken(dbUser.getId());
     }
 
-    public User getUserInfo(Long userId) {
+    public User getUserInfoByUserId(Long userId) {
         User user = userDao.getUserById(userId);
         UserInfo userInfo = userDao.getUserInfoByUserId(userId);
         user.setUserInfo(userInfo);
@@ -185,5 +185,9 @@ public class UserService {
         }
         Long userId = refreshTokenDetail.getUserId();
         return TokenUtil.generateToken(userId);
+    }
+
+    public List<UserInfo> batchGetUserInfoByUserIds(Set<Long> userIdList) {
+        return userDao.batchGetUserInfoByUserIds(userIdList);
     }
 }

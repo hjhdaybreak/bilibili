@@ -6,6 +6,7 @@ import com.bilibili.domain.UserFollowing;
 import com.bilibili.domain.UserMoment;
 import com.bilibili.domain.constant.UserMomentsConstant;
 import com.bilibili.service.UserFollowingService;
+import com.bilibili.service.websocket.WebSocketService;
 import com.mysql.cj.util.StringUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,4 +82,41 @@ public class RocketMQConfig {
         return consumer;
     }
 
+    @Bean("danmusProducer")
+    public DefaultMQProducer danmusProducer() throws MQClientException {
+        DefaultMQProducer producer = new DefaultMQProducer(UserMomentsConstant.GROUP_DANMUS);
+        producer.setNamesrvAddr(nameServerAddr);
+        producer.start();
+        return producer;
+    }
+
+    @Bean("danmusConsumer")
+    public DefaultMQPushConsumer danmusConsumer() throws MQClientException {
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(UserMomentsConstant.TOPIC_DANMUS);
+        consumer.setNamesrvAddr(nameServerAddr);
+        consumer.subscribe(UserMomentsConstant.TOPIC_MOMENTS, "*");
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+            @Override
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
+                MessageExt msg = msgs.get(0);
+                byte[] msgByte = msg.getBody();
+                String bodyStr = new String(msgByte);
+                JSONObject jsonObject = JSONObject.parseObject(bodyStr);
+                String sessionId = jsonObject.getString("sessionId");
+                String message = jsonObject.getString("message");
+                WebSocketService webSocketService = WebSocketService.WEBSOCKET_MAP.get(sessionId);
+                if(webSocketService.getSession().isOpen()){
+                    try {
+                        webSocketService.sendMessage(message);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                // 标记该消息已经被成功消费
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+        consumer.start();
+        return consumer;
+    }
 }

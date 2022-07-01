@@ -42,7 +42,7 @@ public class UserMomentsApi {
     @ApiLimitedRole(limitedRoleCodeList = {AuthRoleConstants.ROLE_LV0})
     @DataLimited
     @PostMapping("/user-moments")
-    public JsonResponse<String> addUserMoments(@RequestBody UserMoment userMoment) throws MQBrokerException, RemotingException, InterruptedException, MQClientException {
+    public JsonResponse<String> addUserMoments(@RequestBody UserMoment userMoment) throws Exception {
         Long userId = userSupport.getCurrentUserId();
         userMoment.setUserId(userId);
         userMomentsService.addUserMoments(userMoment);
