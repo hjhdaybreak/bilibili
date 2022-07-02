@@ -17,14 +17,13 @@ public class IpUtil {
 			if (index != -1) {
 				ip = ip.substring(0, index);
 			}
-			return ip;
 		} else {
 			ip = httpServletRequest.getHeader("X-Real-IP");
 			if (ip == null || "".equals(ip.trim())) {
 				ip = httpServletRequest.getRemoteAddr();
 			}
-			return ip;
 		}
+		return ip;
 	}
 
 	public static String getLocalAddress() {

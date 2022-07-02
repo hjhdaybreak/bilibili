@@ -82,7 +82,7 @@ public class ElasticSearchService {
                     Text[] fragments = field.fragments();
                     String str = Arrays.toString(fragments);
                     str = str.substring(1, str.length() - 1);
-                    sourceMap.put(key, str); //将内容替换
+                    sourceMap.put(key, str); //将内容进行替换
                 }
             }
             arrayList.add(sourceMap);
