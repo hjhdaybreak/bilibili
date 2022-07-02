@@ -158,7 +158,7 @@ public class VideoApi {
      */
     @GetMapping("/video-details")
     public JsonResponse<Map<String, Object>> getVideoDetails(@RequestParam Long videoId) {
-        Map<String, Object> result = videoService.getVideoDetails(videoId);
+        Map<String, Object> result = videoService.getVideoDetails(36L);
         return new JsonResponse<>(result);
     }
 

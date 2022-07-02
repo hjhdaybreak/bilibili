@@ -10,6 +10,7 @@
       <option name="customHeaders">
         <set>
           <option value="Access-Control-Expose-Headers" />
+          <option value="XDomainRequestAllowed" />
         </set>
       </option>
     </inspection_tool>

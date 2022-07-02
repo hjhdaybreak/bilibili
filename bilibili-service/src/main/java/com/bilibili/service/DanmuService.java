@@ -25,9 +25,6 @@ public class DanmuService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    public void addDanmu(Danmu danmu) {
-        danmuDao.addDanmu(danmu);
-    }
 
     @Async
     public void asyncAddDanmu(Danmu danmu) {
