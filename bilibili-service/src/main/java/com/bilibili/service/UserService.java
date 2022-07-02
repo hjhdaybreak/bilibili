@@ -23,7 +23,8 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private ElasticSearchService elasticSearchService;
     @Autowired
     private UserAuthService userAuthService;
 
@@ -60,6 +61,9 @@ public class UserService {
 
         //添加用户默认权限角色
         userAuthService.addUserDefaultRole(user.getId());
+
+        //同步用户信息数据到es
+        elasticSearchService.addUserInfo(userInfo);
     }
 
     public User getUserByPhone(String phone) {

@@ -2,6 +2,7 @@ package com.bilibili.api;
 
 import com.bilibili.api.support.UserSupport;
 import com.bilibili.domain.*;
+import com.bilibili.service.ElasticSearchService;
 import com.bilibili.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,16 @@ public class VideoApi {
     @Autowired
     VideoService videoService;
 
+    @Autowired
+    private ElasticSearchService elasticSearchService;
 
     @PostMapping("/videos")
     public JsonResponse<String> addVideos(@RequestBody Video video) {
         Long userId = userSupport.getCurrentUserId();
         video.setUserId(userId);
         videoService.addVideos(video);
+
+        elasticSearchService.addVideo(video);
         return JsonResponse.success();
     }
 
