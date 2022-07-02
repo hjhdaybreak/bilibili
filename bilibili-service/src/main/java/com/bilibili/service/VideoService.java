@@ -280,4 +280,12 @@ public class VideoService {
     public Integer getVideoViewCounts(Long videoId) {
         return videoDao.getVideoViewCounts(videoId);
     }
+
+    public List<VideoTag> getVideoTagsByVideoId(Long videoId) {
+        return videoDao.getVideoTagsByVideoId(videoId);
+    }
+
+    public void deleteVideoTags(List<Long> tagIdList, Long videoId) {
+        videoDao.deleteVideoTags(tagIdList, videoId);
+    }
 }

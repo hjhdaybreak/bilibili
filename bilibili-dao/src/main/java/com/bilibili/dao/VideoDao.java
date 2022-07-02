@@ -35,6 +35,7 @@ public interface VideoDao {
 
     Integer deleteVideoCollection(@Param("videoId") Long videoId,
                                   @Param("userId") Long userId);
+
     Integer addVideoCollection(VideoCollection videoCollection);
 
     Long getVideoCollections(Long videoId);
@@ -66,4 +67,8 @@ public interface VideoDao {
     Integer addVideoView(VideoView videoView);
 
     Integer getVideoViewCounts(Long videoId);
+
+    List<VideoTag> getVideoTagsByVideoId(Long videoId);
+
+    Integer deleteVideoTags(List<Long> tagIdList, Long videoId);
 }

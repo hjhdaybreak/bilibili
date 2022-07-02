@@ -1,5 +1,7 @@
 package com.bilibili.api;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bilibili.api.support.UserSupport;
 import com.bilibili.domain.VideoView;
 import com.bilibili.domain.*;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 
@@ -193,6 +196,26 @@ public class VideoApi {
     public JsonResponse<Integer> getVideoViewCounts(@RequestParam Long videoId){
         Integer count = videoService.getVideoViewCounts(videoId);
         return new JsonResponse<>(count);
+    }
+
+    /**
+     * 查询视频标签
+     */
+    @GetMapping("/video-tags")
+    public JsonResponse<List<VideoTag>> getVideoTagsByVideoId(@RequestParam Long videoId) {
+        List<VideoTag> list = videoService.getVideoTagsByVideoId(videoId);
+        return new JsonResponse<>(list);
+    }
+
+    /**
+     * 删除视频标签
+     */
+    @DeleteMapping("/video-tags")
+    public JsonResponse<String> deleteVideoTags(@RequestBody JSONObject params) {
+        String tagIdList = params.getString("tagIdList");
+        Long videoId = params.getLong("videoId");
+        videoService.deleteVideoTags(JSONArray.parseArray(tagIdList).toJavaList(Long.class), videoId);
+        return JsonResponse.success();
     }
 
 }
